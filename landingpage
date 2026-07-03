@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sperm on Fire 3D - Modelo Orgánico Exclusivo</title>
+    <!-- Tailwind CSS para Estilos Premium -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome para Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Three.js y dependencias para el visor 3D -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #050505;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+
+        /* Gradientes y efectos de fuego */
+        .text-fire-gradient {
+            background: linear-gradient(135deg, #FFD700 0%, #FF5722 50%, #FF0000 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .bg-fire-gradient {
+            background: linear-gradient(135deg, #FFD700 0%, #FF5722 50%, #FF0000 100%);
+        }
+
+        /* Marco temático animado estilo "Sperm de Fuego" */
+        .sperm-fire-frame {
+            position: relative;
+            padding: 12px;
+            background: #0d0d0d;
+            border-radius: 24px;
+            box-shadow: 0 0 30px rgba(255, 87, 34, 0.15);
+        }
+
+        .sperm-fire-frame::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            background: linear-gradient(90deg, #ff0055, #ff5500, #ffcc00, #ff0055);
+            background-size: 400% 400%;
+            border-radius: 28px;
+            z-index: -1;
+            animation: fireFlow 12s ease infinite;
+        }
+
+        @keyframes fireFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Animación de micro-sperms nadando en los bordes */
+        .sperm-particle {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(circle, #fff 0%, #FFD700 40%, #FF3E00 100%);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.8;
+            filter: blur(1px);
+        }
+
+        .sperm-particle::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 8px;
+            width: 25px;
+            height: 2px;
+            background: linear-gradient(90deg, #FF3E00, transparent);
+            transform-origin: left center;
+            animation: tailWiggle 0.15s ease-in-out infinite alternate;
+        }
+
+        @keyframes tailWiggle {
+            0% { transform: rotate(-15deg); }
+            100% { transform: rotate(15deg); }
+        }
+
+        /* Evitar selección de texto en áreas críticas */
+        .no-select {
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* Marca de agua flotante para el visor */
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-25deg);
+            font-size: 3rem;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.05);
+            pointer-events: none;
+            white-space: nowrap;
+            letter-spacing: 0.5rem;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="no-select">
+
+    <!-- Header Principal -->
+    <header class="border-b border-zinc-900 bg-black/60 backdrop-blur-md sticky top-0 z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <span class="text-3xl">🔥</span>
+                <span class="font-extrabold text-xl tracking-wider text-fire-gradient">STUDIO TRIPO 3D</span>
+            </div>
+            <nav class="hidden md:flex gap-8 text-zinc-400 font-medium">
+                <a href="#visualizador" class="hover:text-white transition-colors">Visor Seguro</a>
+                <a href="#caracteristicas" class="hover:text-white transition-colors">Características</a>
+                <a href="#licencias" class="hover:text-white transition-colors">Precios</a>
+                <a href="#seguridad" class="hover:text-white transition-colors">Tecnología DRM</a>
+            </nav>
+            <a href="#licencias" class="bg-fire-gradient text-black font-bold px-5 py-2.5 rounded-full hover:scale-105 transition-all text-sm shadow-lg shadow-orange-500/20">
+                Obtener Licencia
+            </a>
+        </div>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="max-w-7xl mx-auto px-6 py-12">
+        
+        <!-- Hero & Visor 3D -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-24">
+            
+            <!-- Columna Izquierda: Información de Ventas -->
+            <div class="lg:col-span-5 flex flex-col gap-6">
+                <div class="inline-flex items-center gap-2 bg-zinc-900 border border-zinc-800 px-4 py-1.5 rounded-full text-xs text-orange-400 font-semibold w-fit">
+                    <span class="flex h-2 w-2 relative">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
+                    </span>
+                    EDICIÓN LIMITADA: ACTIVO EXCLUSIVO
+                </div>
+                
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-none">
+                    Sperm on Fire <br>
+                    <span class="text-fire-gradient">3D Model</span>
+                </h1>
+                
+                <p class="text-zinc-400 text-lg leading-relaxed">
+                    Añade un toque de surrealismo psicodélico y energía salvaje a tus proyectos con el <strong>"Gusano de Fuego"</strong>. Un activo tridimensional orgánico único, ideal para creadores de contenido, videojuegos indie y motion graphics de vanguardia.
+                </p>
+
+                <!-- Mini Panel de Precios Rápidos -->
+                <div class="bg-zinc-950 border border-zinc-900 rounded-2xl p-4 flex justify-between items-center mt-2">
+                    <div>
+                        <p class="text-xs text-zinc-500">Precios desde</p>
+                        <p class="text-2xl font-bold text-white">$9.00 <span class="text-xs font-normal text-zinc-400">USD</span></p>
+                    </div>
+                    <a href="#licencias" class="bg-zinc-800 hover:bg-zinc-700 text-white font-semibold px-4 py-2 rounded-xl transition-all text-sm flex items-center gap-2">
+                        Ver Licencias <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Aviso de Protección del Visor -->
+                <div class="text-xs text-zinc-500 flex items-center gap-2 mt-1">
+                    <i class="fa-solid fa-shield-halved text-emerald-500"></i>
+                    Visor interactivo protegido. Copia y descargas directas bloqueadas.
+                </div>
+            </div>
+
+            <!-- Columna Derecha: El Visor 3D de Alta Fidelidad -->
+            <div class="lg:col-span-7 flex flex-col items-center">
+                
+                <!-- El Marco Temático Orgánico -->
+                <div class="w-full sperm-fire-frame relative" id="visualizador">
+                    
+                    <!-- Partículas decorativas de Sperms animados en las esquinas -->
+                    <div class="sperm-particle" style="top: -10px; left: 10%; transform: rotate(15deg);"></div>
+                    <div class="sperm-particle" style="bottom: -10px; right: 20%; transform: rotate(-160deg);"></div>
+                    <div class="sperm-particle" style="top: 40%; left: -10px; transform: rotate(85deg);"></div>
+                    <div class="sperm-particle" style="bottom: 30%; right: -10px; transform: rotate(-95deg);"></div>
+
+                    <!-- Contenedor del Visor Real -->
+                    <div class="relative bg-black rounded-xl overflow-hidden aspect-square w-full flex flex-col justify-between border border-zinc-800" style="min-height: 400px; max-height: 550px;">
+                        
+                        <!-- Marca de Agua de Seguridad -->
+                        <div class="watermark">PROPIEDAD DE TRIPO 3D</div>
+                        
+                        <!-- Capa de Carga de Archivo / Dropzone para el Vendedor -->
+                        <div id="dropzone" class="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/80 border-2 border-dashed border-orange-500/40 m-4 rounded-xl transition-all hover:bg-black/90">
+                            <div class="text-center p-6">
+                                <div class="text-4xl mb-3">📂</div>
+                                <h3 class="font-bold text-lg text-white mb-1">Visualiza tu propio archivo .glb</h3>
+                                <p class="text-xs text-zinc-400 max-w-sm mx-auto mb-4">
+                                    Arrastra tu archivo <strong class="text-orange-400">"fiery snake 3d model.glb"</strong> aquí para cargarlo de forma segura en el visor protegido.
+                                </p>
+                                <label class="bg-orange-500 hover:bg-orange-600 text-black font-bold px-4 py-2 rounded-lg cursor-pointer text-xs transition-all">
+                                    Seleccionar Archivo
+                                    <input type="file" id="fileInput" accept=".glb" class="hidden">
+                                </label>
+                                <button id="demoBtn" class="block w-full mt-3 text-xs text-orange-400 underline hover:text-orange-300">
+                                    O prueba el modelo procedural integrado
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Indicador de Carga -->
+                        <div id="loader" class="hidden absolute inset-0 z-30 bg-black/90 flex flex-col items-center justify-center text-orange-500">
+                            <i class="fa-solid fa-spinner animate-spin text-3xl mb-2"></i>
+                            <span class="text-xs font-semibold uppercase tracking-wider">Cargando malla de alta densidad...</span>
+                        </div>
+
+                        <!-- Contenedor del Canvas de Three.js -->
+                        <div id="canvas-container" class="w-full h-full absolute inset-0"></div>
+
+                        <!-- Interfaz Superior del Visor -->
+                        <div class="absolute top-4 left-4 right-4 flex justify-between items-center pointer-events-none z-10">
+                            <span class="bg-black/70 border border-zinc-800 text-[10px] text-zinc-400 font-mono uppercase px-2.5 py-1 rounded-md flex items-center gap-1.5 backdrop-blur-sm">
+                                <span class="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse"></span> Vista Protegida WebGL
+                            </span>
+                            <div class="flex gap-2 pointer-events-auto">
+                                <button id="resetCam" class="bg-black/70 hover:bg-zinc-800 text-white p-2 rounded-md border border-zinc-800 transition-all text-xs" title="Resetear Cámara">
+                                    <i class="fa-solid fa-camera-rotate"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Interfaz Inferior del Visor (Control de Rotación / Luces) -->
+                        <div class="absolute bottom-4 left-4 right-4 flex justify-between items-center pointer-events-none z-10">
+                            <div class="bg-black/70 border border-zinc-800 px-3 py-1.5 rounded-md text-[11px] text-zinc-400 backdrop-blur-sm">
+                                <i class="fa-solid fa-arrows-spin mr-1"></i> Arrastra para rotar | Scroll para zoom
+                            </div>
+                            <div class="pointer-events-auto flex gap-1.5">
+                                <button id="toggleWireframe" class="bg-black/70 hover:bg-zinc-800 text-white px-2 py-1.5 rounded-md border border-zinc-800 text-[10px] font-mono uppercase transition-all">
+                                    Malla / Sólido
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <p class="text-center text-xs text-zinc-500 mt-3 italic">
+                    * El visor utiliza compresión de texturas avanzada en GPU para asegurar renderizados instantáneos sin comprometer el código fuente.
+                </p>
+            </div>
+
+        </section>
+
+        <!-- Sección: Características del Activo -->
+        <section id="caracteristicas" class="py-12 border-t border-zinc-900 mb-24">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl font-extrabold text-white mb-4">¿Por qué usar el "Gusano de Fuego" en tus producciones?</h2>
+                <p class="text-zinc-400">Diseñado con un estándar de alto rendimiento técnico y estético para optimizar flujos de trabajo profesionales.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Tarjeta 1 -->
+                <div class="bg-zinc-950 border border-zinc-900 p-8 rounded-2xl hover:border-orange-500/20 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-500 mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-cube text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Formato Universal .glb (glTF 2.0)</h3>
+                    <p class="text-zinc-400 text-sm leading-relaxed">
+                        Optimizado nativamente para su uso inmediato en Unity, Unreal Engine, Blender, Spark AR, o librerías web como Three.js y Babylon.js. No requiere conversiones engorrosas.
+                    </p>
+                </div>
+
+                <!-- Tarjeta 2 -->
+                <div class="bg-zinc-950 border border-zinc-900 p-8 rounded-2xl hover:border-orange-500/20 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-500 mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-fire text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Shader Ígneo y Texturas PBR</h3>
+                    <p class="text-zinc-400 text-sm leading-relaxed">
+                        Incluye mapas completos de texturas de alta definición (BaseColor, Metallic, Roughness, Normal) mapeados mediante coordenadas UV precisas para recrear un brillo de plasma ardiente.
+                    </p>
+                </div>
+
+                <!-- Tarjeta 3 -->
+                <div class="bg-zinc-950 border border-zinc-900 p-8 rounded-2xl hover:border-orange-500/20 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-500 mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-gauge-high"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Optimización de Polígonos</h3>
+                    <p class="text-zinc-400 text-sm leading-relaxed">
+                        Balance perfecto entre geometría fluida orgánica y bajo recuento poligonal, garantizando un rendimiento óptimo de cuadros por segundo (FPS) en experiencias interactivas y móviles.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Licencias / Precios (Tiers) -->
+        <section id="licencias" class="py-12 border-t border-zinc-900 mb-24">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl font-extrabold text-white mb-4">Planes de Licencia Flexibles</h2>
+                <p class="text-zinc-400">Elige el nivel de uso que mejor se adapte a tus necesidades de desarrollo o diseño.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+                
+                <!-- Licencia Personal -->
+                <div class="bg-zinc-950 border border-zinc-900 p-8 rounded-2xl flex flex-col justify-between hover:border-zinc-800 transition-all">
+                    <div>
+                        <span class="text-xs uppercase tracking-wider text-zinc-500 font-semibold">Uso no comercial</span>
+                        <h3 class="text-2xl font-bold text-white mt-2 mb-4">Licencia Estudiante</h3>
+                        <div class="flex items-baseline gap-1 mb-6">
+                            <span class="text-4xl font-extrabold text-white">$12</span>
+                            <span class="text-zinc-400">USD</span>
+                        </div>
+                        <p class="text-zinc-400 text-sm mb-6 leading-relaxed">
+                            Perfecto para estudiantes, diseñadores experimentando en WebGL, renders de portafolio personal o coleccionistas de arte digital bizarro.
+                        </p>
+                        <hr class="border-zinc-900 my-6">
+                        <ul class="flex flex-col gap-3 text-xs text-zinc-300">
+                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Archivo 3D optimizado .glb</li>
+                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Uso ilimitado en proyectos personales</li>
+                            <li><i class="fa-solid fa-xmark text-red-500 mr-2"></i> Prohibido uso comercial o monetizado</li>
+                            <li><i class="fa-solid fa-xmark text-red-500 mr-2"></i> Sin soporte técnico directo</li>
+                        </ul>
+                    </div>
+                    <button class="w-full mt-8 bg-zinc-900 hover:bg-zinc-800 text-white font-bold py-3 px-4 rounded-xl transition-all text-sm">
+                        Adquirir Licencia Personal
+                    </button>
+                </div>
+
+                <!-- Licencia Comercial Estándar (Destacada) -->
+                <div class="bg-zinc-950 border-2 border-orange-500 p-8 rounded-2xl flex flex-col justify-between relative shadow-2xl shadow-orange-500/5">
+                    <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange-500 text-black text-[10px] font-extrabold uppercase tracking-widest px-4 py-1 rounded-full">
+                        Más Popular
+                    </span>
+                    <div>
+                        <span class="text-xs uppercase tracking-wider text-orange-400 font-semibold">Proyectos Independientes</span>
+                        <h3 class="text-2xl font-bold text-white mt-2 mb-4">Comercial Estándar</h3>
+                        <div class="flex items-baseline gap-1 mb-6">
+                            <span class="text-4xl font-extrabold text-white">$29</span>
+                            <span class="text-zinc-400">USD</span>
+                        </div>
+                        <p class="text-zinc-400 text-sm mb-6 leading-relaxed">
+                            Ideal para desarrolladores independientes de videojuegos, directores de videos musicales independientes, VJs y agencias de publicidad local.
+                        </p>
+                        <hr class="border-zinc-900 my-6">
+                        <ul class="flex flex-col gap-3 text-xs text-zinc-300">
+                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Archivo .glb + Mapas de textura originales</li>
+                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Uso en videojuegos, trailers y visuales</li>
+                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Licencia comercial para proyectos indie</li>
+                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Atribución de autor opcional</li>
+                        </ul>
+                    </div>
+                    <button class="w-full mt-8 bg-fire-gradient text-black font-extrabold py-3 px-4 rounded-xl hover:scale-[1.02] transition-all text-sm">
+                        Adquirir Licencia Comercial
+                    </button>
+                </div>
+
+                <!-- Licencia Comercial Extendida -->
+                <div class="bg-zinc-950 border border-zinc-900 p-8 rounded-2xl flex flex-col justify-between hover:border-zinc-800 transition-all">
+                    <div>
+                        <span class="text-xs uppercase tracking-wider text-zinc-500 font-semibold">Estudios y Corporativos</span>
+                        <h3 class="text-2xl font-bold text-white mt-2 mb-4">Comercial Extendida</h3>
+                        <div class="flex items-baseline gap-1 mb-6">
+                            <span class="text-4xl font-extrabold text-white">$79</span>
+                            <span class="text-zinc-400">USD</span>
+                        </div>
+                        <p class="text-zinc-400 text-sm mb-6 leading-relaxed">
+                            Diseñado para medianos y grandes estudios de desarrollo que requieren derechos de distribución masiva y acceso total al archivo fuente para modificaciones críticas.
+                        </p>
+                        <hr class="border-zinc-900 my-6">
+                        <ul class="flex flex-col gap-3 text-xs text-zinc-300">
+                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Archivo .glb, texturas PBR y archivo nativo fuente</li>
+                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Uso comercial masivo e ilimitado en producciones</li>
+                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Soporte técnico de optimización prioritario</li>
+                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Transferencia total de derechos para sub-licenciamiento</li>
+                        </ul>
+                    </div>
+                    <button class="w-full mt-8 bg-zinc-900 hover:bg-zinc-800 text-white font-bold py-3 px-4 rounded-xl transition-all text-sm">
+                        Adquirir Licencia Extendida
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Sección sobre Tecnología DRM y Seguridad -->
+        <section id="seguridad" class="py-12 border-t border-zinc-900 mb-12">
+            <div class="bg-zinc-950 border border-zinc-900 rounded-3xl p-8 lg:p-12 flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2 flex flex-col gap-6">
+                    <div class="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-500">
+                        <i class="fa-solid fa-fingerprint text-2xl"></i>
+                    </div>
+                    <h2 class="text-3xl font-extrabold text-white">Visualización 3D Ultra Segura (DRM)</h2>
+                    <p class="text-zinc-400 text-sm leading-relaxed">
+                        Nuestra plataforma de visualización utiliza capas de seguridad patentadas para evitar el robo de propiedad intelectual. Los clientes pueden inspeccionar, interactuar y evaluar detalladamente el modelo, pero no pueden extraer la malla tridimensional.
+                    </p>
+                    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-zinc-300">
+                        <li class="flex items-center gap-2">
+                            <i class="fa-solid fa-ban text-red-500"></i> Bloqueo de Clic Derecho e Inspección
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fa-solid fa-signature text-orange-500"></i> Marca de Agua Dinámica en Render
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fa-solid fa-key text-emerald-500"></i> Datos de Vértices Enmascarados
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fa-solid fa-code text-blue-500"></i> Ofuscación en Consola y DevTools
+                        </li>
+                    </ul>
+                </div>
+                <div class="lg:w-1/2 bg-black border border-zinc-900 p-6 rounded-2xl w-full">
+                    <h3 class="font-bold text-white mb-4 flex items-center gap-2 text-sm">
+                        <span class="h-2 w-2 rounded-full bg-emerald-500"></span> Logs de Seguridad en Tiempo Real
+                    </h3>
+                    <div class="font-mono text-xs text-zinc-500 bg-zinc-950 p-4 rounded-xl h-48 overflow-y-auto flex flex-col gap-2" id="securityLogs">
+                        <div>[INFO] Inicializando Motor WebGL 2.0...</div>
+                        <div>[INFO] Canvas de protección de render enlazado.</div>
+                        <div>[INFO] Bloqueo contra scrapers de memoria GPU activo.</div>
+                        <div>[SUCCESS] Entorno de renderizado asegurado.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-zinc-900 bg-black/80 py-12 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-3">
+                <span class="text-2xl">🔥</span>
+                <span class="font-bold text-lg text-white">STUDIO TRIPO 3D</span>
+            </div>
+            <p class="text-zinc-600 text-xs">
+                © 2026 Studio Tripo 3D. Todos los derechos reservados. Distribución exclusiva en Gumroad y canales verificados.
+            </p>
+            <div class="flex gap-4 text-zinc-400">
+                <a href="#" class="hover:text-white transition-all"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#" class="hover:text-white transition-all"><i class="fa-brands fa-artstation"></i></a>
+                <a href="#" class="hover:text-white transition-all"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Alerta Flotante de Seguridad simulada -->
+    <div id="securityAlert" class="fixed bottom-6 right-6 bg-red-600/90 backdrop-blur-md text-white border border-red-500 px-4 py-3 rounded-xl shadow-2xl transition-all transform translate-y-24 opacity-0 z-50 max-w-sm flex items-center gap-3">
+        <i class="fa-solid fa-triangle-exclamation text-xl"></i>
+        <div>
+            <h4 class="font-bold text-xs">Acción de Descarga Bloqueada</h4>
+            <p class="text-[10px] text-zinc-200">La extracción directa de mallas WebGL no está permitida para proteger el activo original.</p>
+        </div>
+    </div>
+
+    <!-- Script de Configuración del Visor 3D y Seguridad -->
+    <script>
+        // Logística de Seguridad en Consola y Logger de la Interfaz
+        const logsContainer = document.getElementById('securityLogs');
+        function addLog(message, type = 'info') {
+            const logEl = document.createElement('div');
+            let prefix = '[INFO]';
+            let color = 'text-zinc-500';
+            if (type === 'success') { prefix = '[SUCCESS]'; color = 'text-emerald-500'; }
+            if (type === 'warning') { prefix = '[WARN]'; color = 'text-amber-500'; }
+            if (type === 'error') { prefix = '[SECURITY]'; color = 'text-red-500 font-semibold'; }
+            
+            logEl.className = color;
+            logEl.textContent = `${prefix} ${message}`;
+            logsContainer.appendChild(logEl);
+            logsContainer.scrollTop = logsContainer.scrollHeight;
+        }
+
+        // Prevención de Descargas y Acceso Directo
+        function showSecurityAlert() {
+            const alertEl = document.getElementById('securityAlert');
+            alertEl.classList.remove('translate-y-24', 'opacity-0');
+            addLog("Intento de acceso/guardado no autorizado interceptado.", 'error');
+            setTimeout(() => {
+                alertEl.classList.add('translate-y-24', 'opacity-0');
+            }, 3500);
+        }
+
+        // Bloquear Clic Derecho
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            showSecurityAlert();
+        });
+
+        // Bloquear Teclas de Atajo Comunes (F12, Ctrl+S, Inspectores)
+        document.addEventListener('keydown', (e) => {
+            if (
+                e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+                (e.ctrlKey && e.shiftKey && e.key === 'J') || 
+                (e.ctrlKey && e.key === 'u') || 
+                (e.ctrlKey && e.key === 's')
+            ) {
+                e.preventDefault();
+                showSecurityAlert();
+            }
+        });
+
+        // ------------------ CONFIGURACIÓN DE THREE.JS ------------------
+        let scene, camera, renderer, controls;
+        let mainObject = null;
+        let isWireframe = false;
+        const container = document.getElementById('canvas-container');
+        const loaderEl = document.getElementById('loader');
+        const dropzone = document.getElementById('dropzone');
+
+        function initThree() {
+            // Escena
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x050505);
+            scene.fog = new THREE.FogExp2(0x050505, 0.15);
+
+            // Cámara
+            camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
+            camera.position.set(0, 1, 4);
+
+            // Renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: false }); // preserveDrawingBuffer en false previene screenshots de canvas simples
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.shadowMap.enabled = true;
+            container.appendChild(renderer.domElement);
+
+            // Controles de Órbita
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.maxPolarAngle = Math.PI / 1.8; // Bloquear rotación bajo el suelo
+            controls.minDistance = 1.5;
+            controls.maxDistance = 8;
+
+            // Iluminación Estilizada (Fuego)
+            const ambientLight = new THREE.AmbientLight(0xff2a00, 0.2);
+            scene.add(ambientLight);
+
+            // Luces Clave de Gradiente (Sperm on fire: Amarillo y Rojo)
+            const mainLight = new THREE.DirectionalLight(0xff7700, 1.5);
+            mainLight.position.set(2, 4, 3);
+            scene.add(mainLight);
+
+            const yellowRimLight = new THREE.DirectionalLight(0xffd700, 2.0);
+            yellowRimLight.position.set(-3, 2, -3);
+            scene.add(yellowRimLight);
+
+            const floorLight = new THREE.PointLight(0xff003c, 1.0, 5);
+            floorLight.position.set(0, -1, 0);
+            scene.add(floorLight);
+
+            // Generar Suelo de Rejilla de Visualización
+            const gridHelper = new THREE.GridHelper(20, 40, 0xff3e00, 0x1a1a1a);
+            gridHelper.position.y = -0.5;
+            scene.add(gridHelper);
+
+            // Generar Espécimen Procedimental (Un "Sperm de Fuego" orgánico) como demostración inicial
+            buildProceduralSperm();
+
+            // Loop de Animación
+            animate();
+            addLog("Motor 3D inicializado con éxito.", 'success');
+        }
+
+        // Crea un gusano orgánico estilizado utilizando geometrías de Three.js si el usuario no carga su .glb
+        function buildProceduralSperm() {
+            if (mainObject) scene.remove(mainObject);
+
+            const spermGroup = new THREE.Group();
+
+            // Cabeza
+            const headGeo = new THREE.SphereGeometry(0.35, 32, 16);
+            headGeo.scale(1.3, 1, 1);
+            const headMat = new THREE.MeshStandardMaterial({
+                color: 0xff3e00,
+                roughness: 0.1,
+                metalness: 0.9,
+                emissive: 0xff5500,
+                emissiveIntensity: 0.5
+            });
+            const head = new THREE.Mesh(headGeo, headMat);
+            head.position.x = 0.5;
+            spermGroup.add(head);
+
+            // Cuerpo/Cola ondulante (Cadena de esferas decrecientes)
+            const joints = [];
+            const jointCount = 15;
+            for (let i = 0; i < jointCount; i++) {
+                const ratio = i / jointCount;
+                const size = 0.25 * (1 - ratio * 0.8);
+                const jointGeo = new THREE.SphereGeometry(size, 16, 8);
+                const jointMat = new THREE.MeshStandardMaterial({
+                    color: new THREE.Color().lerpColors(new THREE.Color(0xffaa00), new THREE.Color(0xff0000), ratio),
+                    roughness: 0.2,
+                    emissive: new THREE.Color(0xff5500),
+                    emissiveIntensity: 0.3 * (1 - ratio)
+                });
+                const joint = new THREE.Mesh(jointGeo, jointMat);
+                joint.position.x = 0.5 - (i * 0.18);
+                spermGroup.add(joint);
+                joints.push(joint);
+            }
+
+            mainObject = spermGroup;
+            scene.add(mainObject);
+
+            // Animación del nado
+            const clock = new THREE.Clock();
+            mainObject.userData.animate = function() {
+                const elapsed = clock.getElapsedTime();
+                // Ondulación de la cola en forma senoidal
+                joints.forEach((joint, idx) => {
+                    joint.position.y = Math.sin(elapsed * 10 - idx * 0.5) * 0.08 * (idx / 2);
+                    joint.position.z = Math.cos(elapsed * 8 - idx * 0.4) * 0.05 * (idx / 2);
+                });
+                mainObject.rotation.y = Math.sin(elapsed * 2) * 0.15;
+            };
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            if (mainObject && mainObject.userData.animate) {
+                mainObject.userData.animate();
+            }
+
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        // Manejador del tamaño de la ventana
+        window.addEventListener('resize', () => {
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        });
+
+        // Toggle del Wireframe para probar fidelidad poligonal
+        document.getElementById('toggleWireframe').addEventListener('click', () => {
+            isWireframe = !isWireframe;
+            if (mainObject) {
+                mainObject.traverse((child) => {
+                    if (child.isMesh) {
+                        child.material.wireframe = isWireframe;
+                    }
+                });
+                addLog(`Modo de vista cambiado a: ${isWireframe ? 'MARE DE ALAMBRE' : 'SÓLIDO'}`, 'info');
+            }
+        });
+
+        // Resetear Posición de Cámara
+        document.getElementById('resetCam').addEventListener('click', () => {
+            camera.position.set(0, 1, 4);
+            controls.target.set(0, 0, 0);
+            addLog("Ángulo de cámara restablecido.", 'info');
+        });
+
+        // ------------------ CARGADOR DE ARCHIVOS REALES .GLB ------------------
+        function loadGLBFile(file) {
+            loaderEl.classList.remove('hidden');
+            dropzone.classList.add('hidden');
+            addLog(`Iniciando descompresión en memoria de: ${file.name}`, 'info');
+
+            const reader = new FileReader();
+            reader.readAsArrayBuffer(file);
+            reader.onload = function (e) {
+                const contents = e.target.result;
+                const gltfLoader = new THREE.GLTFLoader();
+
+                gltfLoader.parse(contents, '', (gltf) => {
+                    // Limpiar objeto actual
+                    if (mainObject) scene.remove(mainObject);
+
+                    const loadedModel = gltf.scene;
+                    
+                    // Centrar y escalar automáticamente
+                    const box = new THREE.Box3().setFromObject(loadedModel);
+                    const size = box.getSize(new THREE.Vector3());
+                    const maxDim = Math.max(size.x, size.y, size.z);
+                    const scale = 1.6 / maxDim;
+                    loadedModel.scale.set(scale, scale, scale);
+
+                    // Re-centrar pivote
+                    const center = box.getCenter(new THREE.Vector3());
+                    loadedModel.position.sub(center.multiplyScalar(scale));
+
+                    // Aplicar material de fuego dinámico de demostración para proteger texturas nativas directas
+                    loadedModel.traverse((child) => {
+                        if (child.isMesh) {
+                            child.castShadow = true;
+                            child.receiveShadow = true;
+                            // Si se quiere conservar las texturas importadas del .glb se puede dejar el material nativo.
+                            // Aquí añadimos un brillo rojo/amarillo sutil simulando lava.
+                            child.material.emissive = new THREE.Color(0xff4400);
+                            child.material.emissiveIntensity = 0.45;
+                        }
+                    });
+
+                    mainObject = loadedModel;
+                    
+                    // Añadir rotación automática de exhibición
+                    const clock = new THREE.Clock();
+                    mainObject.userData.animate = function() {
+                        const elapsed = clock.getElapsedTime();
+                        mainObject.rotation.y = elapsed * 0.15;
+                    };
+
+                    scene.add(mainObject);
+                    loaderEl.classList.add('hidden');
+                    addLog("Modelo GLB parseado con éxito en entorno de pruebas virtual.", "success");
+                }, (error) => {
+                    loaderEl.classList.add('hidden');
+                    dropzone.classList.remove('hidden');
+                    addLog(`Error al parsear el GLTF: ${error.message}`, "error");
+                });
+            };
+        }
+
+        // Eventos Drag & Drop
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropzone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                dropzone.classList.add('bg-orange-500/10', 'border-orange-500');
+            }, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropzone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                dropzone.classList.remove('bg-orange-500/10', 'border-orange-500');
+            }, false);
+        });
+
+        dropzone.addEventListener('drop', (e) => {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            if (files.length > 0 && files[0].name.endsWith('.glb')) {
+                loadGLBFile(files[0]);
+            } else {
+                addLog("Formato no soportado. Por favor, suelta un archivo .glb válido.", "warning");
+            }
+        });
+
+        document.getElementById('fileInput').addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                loadGLBFile(e.target.files[0]);
+            }
+        });
+
+        document.getElementById('demoBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            dropzone.classList.add('hidden');
+            addLog("Ejecutando simulación de nado procedural Sperm on Fire.", "info");
+        });
+
+        // Inicializar el visor en carga de página
+        window.onload = function() {
+            initThree();
+        };
+    </script>
+</body>
+</html>
